@@ -1,0 +1,181 @@
+<%- include('./partials/header.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.0.3/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/moment@2.29.1/moment.min.js"></script>
+</head>
+
+<body class="bg-gray-100 dark:bg-gray-900">
+    <main class="py-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-2xl font-semibold mb-8">Order Delivery Status</h2>
+            <% if (user.orders.length === 0) { %>
+            <p class="text-xl text-gray-500">No orders placed yet.</p>
+            <% } else { %>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <% user.orders.forEach(function(product) { %>
+                <div
+                    class="order-item bg-stone-100 rounded-xl hover:shadow-2xl transition-all duration-300 p-6 dark:bg-gray-800 dark:border-gray-700">
+                    <div class="flex items-center mb-4">
+                        <a href="#"
+                            onclick="openPopup('<%= product.productname %>', '<%= product.productprice %>', '<%= product.productdiscount %>', '<%= product.status %> Placed', '<%= product.deliveryDate ? moment(product.deliveryDate).format("MMM Do, YYYY") : "N/A" %>', '+91 7654789765<%= product.contact %>', 'data:image/jpeg;base64,<%= product.productimage[0].toString("base64") %>', '/cancelorder/<%= product._id %>')"
+                            class="shrink-0">
+                            <img src="data:image/jpeg;base64,<%= product.productimage[0].toString('base64') %>"
+                                class="h-36 w-36 object-cover rounded-lg dark:border-gray-600 transition-transform transform hover:scale-105">
+                        </a>
+                        <div class="order-item-details ml-4 flex-1">
+
+                            <a href="/product/<%= product._id %>"
+                                class="text-lg font-medium text-gray-900 hover:text-indigo-600 dark:text-white dark:hover:text-indigo-400 transition-all">
+                                <%= product.productname %>
+                            </a>
+                            <p class="text-sm text-green-600 font-medium">Discount : ₹<%= product.productdiscount %></p>
+                            <p class="text-lg font-bold text-gray-900 dark:text-white">₹<%= product.productprice %></p>
+                            <p class="text-sm text-gray-500">Product id : <%= product._id %></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center justify-between mt-4">
+                        <div
+                            class="bg-yellow-300 text-yellow-800 font-semibold py-1 px-4 rounded-full text-sm w-36 text-center">
+                            <%= product.status %>
+                        </div>
+                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                            Expected delivery :
+                            <%= product.deliveryDate ? moment(product.deliveryDate).fromNow() : "2d" %>
+                        </p>
+                    </div>
+                    <% if (product.status !== 'Delivered') { %>
+                    <a href="javascript:void(0)"
+                        onclick="showCancelOrderPopup('<%= product.productname %>', '<%= product._id %>')"
+                        class="mt-3 bg-red-600 flex text-white rounded-full w-full items-center justify-center px-5 py-2 text-sm font-medium hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                        Cancel Order
+                    </a>
+                    <% } else { %>
+                    <p class="mt-3 text-sm text-green-600 font-medium text-center">Order Delivered</p>
+                    <% } %>
+                </div>
+                <% }); %>
+            </div>
+            <% } %>
+        </div>
+    </main>
+    <div id="cancelOrderPopup"
+        class="fixed top-0 left-0 right-0 z-50 hidden bg-red-500 text-white shadow-lg py-4 px-6 rounded-b-lg transition-transform transform -translate-y-full">
+        <p id="cancelOrderMessage" class="text-lg mb-2">
+            Are you sure you want to cancel the product:
+        </p>
+        <p id="cancelProductName" class="text-lg font-bold mb-4"></p>
+        <div class="flex justify-end gap-4">
+            <button onclick="closeCancelOrderPopup()"
+                class="bg-gray-200 text-red-600 px-4 py-2 rounded-lg hover:bg-gray-300">
+                Close
+            </button>
+            <button id="confirmCancelButton" class="bg-white text-red-600 px-4 py-2 rounded-lg hover:bg-gray-100">
+                Confirm
+            </button>
+        </div>
+    </div>
+
+
+    <div id="orderPopup" class="fixed inset-0 z-50 hidden bg-black bg-opacity-50 flex items-center justify-center">
+        <div class="bg-white rounded-lg shadow-xl w-96 dark:bg-gray-800 dark:text-white">
+            <div class="p-6">
+                <img id="popupProductImage" class="w-full h-48 object-cover rounded-lg mb-4" src="" alt="Product Image">
+                <h2 id="popupProductName" class="text-xl font-bold mb-4"></h2>
+                <p><strong>Price:</strong> ₹<span id="popupProductPrice"></span></p>
+                <p class="text-sm text-green-600 font-medium"><strong>Discount:</strong> ₹<span
+                        id="popupProductDiscount"></span></p>
+                <div class="relative w-full bg-gray-200 rounded-full dark:bg-gray-700 h-4 my-4">
+                    <div id="popupProgressBar"
+                        class="absolute top-0 left-0 h-4 rounded-full transition-all duration-300"></div>
+                </div>
+                <div class="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
+                    <span>Order Placed</span>
+                    <span>Shipped</span>
+                    <span>Out for Delivery</span>
+                    <span>Delivered</span>
+                </div>
+                <p><strong>Status:</strong> <span id="popupOrderStatus"></span></p>
+                <p><strong>Expected Delivery:</strong> <span id="popupDeliveryDate"></span></p>
+                <p><strong>Contact:</strong> <span id="popupContact"></span></p>
+                <p id="popupOrderId"><strong>Order ID:</strong> </p>
+            </div>
+            <div class="p-4 border-t flex justify-between">
+                <button id="popupCancelOrder"
+                    class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 hidden">Report</button>
+                <button onclick="closePopup()"
+                    class="bg-gray-500 text-white px-4 py-2 rounded-lg hover:bg-gray-700">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openPopup(productName, productPrice, productDiscount, orderStatus, deliveryDate, contact, productImage) {
+            const randomOrderId = Math.floor(Math.random() * 100000000000000);
+            document.getElementById('popupProductName').textContent = productName;
+            document.getElementById('popupProductPrice').textContent = productPrice;
+            document.getElementById('popupProductDiscount').textContent = productDiscount;
+            document.getElementById('popupOrderStatus').textContent = orderStatus;
+            const expectedDelivery = moment().add(2, 'days').format('MMM Do, YYYY');
+            document.getElementById('popupDeliveryDate').textContent = expectedDelivery;
+            document.getElementById('popupContact').textContent = contact;
+            document.getElementById('popupProductImage').src = productImage;
+            document.getElementById('popupOrderId').innerHTML = `<strong>Order ID:</strong> ${randomOrderId}`;
+
+            const progressBar = document.getElementById('popupProgressBar');
+            const cancelOrderButton = document.getElementById('popupCancelOrder');
+            if (orderStatus === 'Delivered') {
+                progressBar.style.width = '100%';
+                progressBar.style.backgroundColor = '#16a34a';
+                cancelOrderButton.classList.add('hidden');
+            } else if (orderStatus === 'Out for Delivery') {
+                progressBar.style.width = '75%';
+                progressBar.style.backgroundColor = '#facc15';
+                cancelOrderButton.classList.remove('hidden');
+            } else if (orderStatus === 'Shipped') {
+                progressBar.style.width = '50%';
+                progressBar.style.backgroundColor = '#3b82f6';
+                cancelOrderButton.classList.remove('hidden');
+            } else {
+                progressBar.style.width = '25%';
+                progressBar.style.backgroundColor = '#f97316';
+                cancelOrderButton.classList.remove('hidden');
+            }
+
+            document.getElementById('orderPopup').classList.remove('hidden');
+        }
+
+        function closePopup() {
+            document.getElementById('orderPopup').classList.add('hidden');
+        }
+
+        function showCancelOrderPopup(productName, orderId) {
+            document.getElementById('cancelProductName').textContent = productName;
+
+            const popup = document.getElementById('cancelOrderPopup');
+            popup.classList.remove('hidden');
+            popup.classList.remove('-translate-y-full');
+            popup.classList.add('translate-y-0');
+
+            const confirmButton = document.getElementById('confirmCancelButton');
+            confirmButton.onclick = function () {
+                window.location.href = `/cancelorder/${orderId}`;
+            };
+        }
+
+        function closeCancelOrderPopup() {
+            const popup = document.getElementById('cancelOrderPopup');
+            popup.classList.remove('translate-y-0');
+            popup.classList.add('-translate-y-full');
+            setTimeout(() => popup.classList.add('hidden'), 300); n
+        }
+    </script>
+</body>
+
+</html>
+<%- include('./partials/footer.ejs') %>

@@ -1,0 +1,51 @@
+<%- include('./partials/ownerauthheader.ejs')  %>
+
+<div class="main">
+    <div class="top">
+        <div class="owner">
+            <img src="/images/Logo/Monsory.png">
+            <h1>Owner Authentication</h1>
+        </div>
+        <div class="login">
+            <h1>Login to Continue</h1>
+            <h5 id="error"><%= errorlogin %></h5>
+            <form action="/owners/login" method="post">
+                <input type="email" name="email" placeholder="Email :" id="form">
+                <input type="password" name="password" placeholder="Password :" id="form" class="myInput">
+                <input type="submit" value="Submit" class="btnsumbit">
+                <div class="forgot">
+                    <a href="/forgot">Forgot Password?</a>
+                </div>
+                <hr>
+                <div class="Policy">
+                    <p>By continuing, you agree to <%= `${config.get('Brand')}` %>'s Terms of Service
+                        Opens a new tab and acknowledge you've read our Privacy Policy</p>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="line">
+        <hr>
+    </div>
+    <div class="bottom">
+        <div class="register">
+            <h1>Create Account</h1>
+            <h5 id="error"><%= error %></h5>
+            <form action="/owners/register" method="post">
+                <input type="text" name="fullname" placeholder="Fullname :" id="form">
+                <input type="email" name="email" placeholder="Email :" id="form">
+                <input type="number" name="contactNO" placeholder="Contact no :" id="form">
+                <input type="text" name="gstin" placeholder="Gstin :" id="form">
+                <input type="password" name="password" placeholder="Password :" id="form" required>
+                <input type="submit" value="Submit" class="btnsumbit">
+                <div class="Policy">
+                    <p>By continuing, you agree to <%= `${config.get('Brand')}` %>'s Terms of Service
+                        Opens a new tab and acknowledge you've read our Privacy Policy</p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<%- include('./partials/footer') %>

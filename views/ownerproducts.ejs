@@ -1,0 +1,32 @@
+<%- include('./partials/header.ejs')  %>
+
+<% if(success.length > 0) { %>
+    <div class="success">
+        <span><%= success %></span>
+        <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+    </div>
+    <% } %>
+    
+<div class="p-6 text-foreground font">
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+        <% products.forEach(function(product){ %>
+        <div class="group bg-card p-4 rounded-lg">
+            <a href="/product/<%= product._id %>">
+                <img src="data:image/jpeg;base64,<%= product.productimage[0].toString('base64') %>"
+                    loading="lazy" alt="<%= product.productname %>"
+                    class="w-full h-72 object-cover mb-4 rounded-lg group-hover:opacity-75 ease-in-out duration-300 shadow ">
+            </a>
+            <div class="flex justify-between items-center mb-1">
+                <h3 class="text-md font-medium"><%= product.productname %></h3>
+                <span class="text-md font-medium">₹<%= product.productprice %>/</span>
+            </div>
+            <a href="/owners/removeproduct/<%= product._id %>">
+                <button
+                    class="mt-1 w-full font-medium text-sm bg-red-500 transition duration-500 ease-in-out text-white py-2 rounded-full hover:bg-red-700">
+                    <i class="ri-delete-bin-6-line"></i> Remove</button></a>
+        </div>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('./partials/footer.ejs')  %>

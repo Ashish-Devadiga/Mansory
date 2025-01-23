@@ -1,0 +1,107 @@
+.page {
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4vh;
+    padding: 0vh 1vw;
+}
+
+.left {
+    height: 100vh;
+    width: 30vw;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 2vh 0vw;
+}
+
+.left a {
+    font-size: 2.5vh;
+    color: #000;
+    text-decoration: none;
+    margin-top: 2vh;
+    font-weight: 500;
+}
+
+.left a:nth-child(2) {
+    background-color: rgb(230, 0, 35);
+    padding: 1vh 1vw;
+    border-radius: 10vh;
+    color: #f1f1f1;
+}
+
+.line {
+    border-left: 1px solid black;
+    height: 100vh;
+}
+
+.right {
+    min-height: 100vh;
+    width: 70vw;
+    padding: 2vh 3vw;
+}
+
+.right h2 {
+    font-size: 5vh;
+    font-weight: 500;
+}
+
+.right h4 {
+    font-weight: 500;
+}
+
+input::file-selector-button {
+    background-color: rgb(230, 0, 35);
+    padding: 1.5vh 1vw;
+    border-radius: 10vw;
+    border: none;
+    color: #f1f1f1;
+    font-family: "Gilroy";
+    cursor: pointer;
+    margin-bottom: 3vh;
+}
+
+.proform {
+    margin-top: 5vh;
+}
+
+.proform h4 {
+    font-size: 2.5vh;
+    font-weight: 500;
+    padding-top: 3vh
+}
+
+.proform h5 {
+    font-size: 2vh;
+    font-weight: 500;
+    margin-bottom: 1vh;
+}
+
+form input[type='submit'] {
+    background-color: rgb(230, 0, 35);
+    padding: 1.5vh 1vw;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-family: "Gilroy";
+    border-radius: 10vh;
+    border: none;
+    cursor: pointer;
+}
+
+form input[type='textarea'] {
+    background-color: #f7f6f6;
+    padding: 1.5vh 8vw;
+    margin: 2.5vh 0vw;
+    font-family: "Gilroy";
+    font-size: 2.3vh;
+    font-weight:500;
+    outline: none;
+    border: none;
+    border-radius: .0.5vh;
+}
+
+#br {
+    margin-bottom: 4vh;
+}

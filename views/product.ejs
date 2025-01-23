@@ -1,0 +1,194 @@
+<%- include('./partials/header.ejs') %>
+
+<% if(success.length > 0) { %>
+<div class="success">
+    <span><%= success %></span>
+    <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+</div>
+<% } %>
+<div id="full">
+    <div class="close">
+        <i class="ri-close-line"></i>
+    </div>
+    <div class="profile">
+        <img class="w-36 h-36 rounded-full object-cover"
+            src="data:image/jpeg;base64,<%= user.picture.toString('base64') %>" alt="<%= user.fullname %>"
+            alt="Rounded avatar">
+        <h3><%= user.fullname %></h3>
+        <h5><%= user.email %></h5>
+    </div>
+    <div class="options">
+        <a href="/profile"><i class="ri-user-line"></i> Profile</a>
+        <a href="#"><i class="ri-instance-line"></i> Orders</a>
+        <a href="/shop"><i class="ri-store-2-line"></i> Shop</a>
+        <a href="/users/logout"><i class="ri-logout-circle-line"></i> Logout</a>
+    </div>
+    <div class="social">
+        <i class="ri-instagram-line"></i>
+        <i class="ri-facebook-line"></i>
+        <i class="ri-twitter-x-fill"></i>
+        <i class="ri-threads-line"></i>
+    </div>
+</div>
+
+<div class="page">
+    <div class="product">
+        <div class="productdetails">
+            <div class="productimg">
+                <img src="data:image/jpeg;base64,<%= product.productimage[0].toString('base64') %>" loading="lazy"
+                    alt="<%= product.productname %>"
+                    class="w-full h-72 object-cover mb-4 rounded-lg rounded-lg group-hover:opacity-75 ease-in-out duration-300 hover:opacity-75 ease-in-out duration-300 shadow ">
+            </div>
+            <div class="productdetail">
+                <h4><%= product.productname %></h4>
+                <h4>Price : ₹<%= product.productprice %>/</h4>
+                <h4>Discount : ₹<%= product.productdiscount %></h4>
+                <select>
+                    <option value="Popular">Size</option>
+                    <% product.productsize.forEach(function(sizes){  %>
+                    <option value="Men"><%= sizes %></opton>
+                        <% }) %>
+                </select>
+
+                <div class="colors">
+                    <h5>Colors :</h5>
+                    <% product.productcolor.forEach(function(colors){ %>
+                    <section style="background-color:<%= colors %>"
+                        class="h-7 w-7 inline-block rounded-lg cursor-pointer shadow ">
+                    </section>
+                    <% }) %>
+                </div>
+                <div class="cheakout">
+                    <a><i class="ri-bank-card-fill"></i> Cheak out</a>
+                    <a href="/addtocart/<%= product._id %>"><i class="ri-shopping-cart-fill"></i> Add to cart</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<div class="page2">
+    <h1>Previews</h1>
+    <div class="imgcolor">
+        <% var imagesArray = product.productimage.slice(); 
+           var lastImage = imagesArray.pop();  %>
+        <% imagesArray.forEach(function(images){  %>
+        <img src="data:image/jpeg;base64,<%= images.toString('base64') %>" loading="lazy"
+            alt="<%= product.productname %>"
+            class="w-30 h-60 object-cover mb-4 rounded-lg rounded-lg group-hover:opacity-75 ease-in-out duration-300 hover:opacity-75 ease-in-out duration-300 shadow ">
+        <%  }) %>
+    </div>
+    <h1>Details</h1>
+    <p><%= product.productdetail %></p>
+    <br>
+    <% product.productinfo.forEach(function(Details){ %>
+    <li><%= Details%></li>
+    <% }) %>
+
+</div>
+<div class="page3">
+    <div class="show">
+        <% imagesArray.push(lastImage); %>
+        <img src="data:image/jpeg;base64,<%= imagesArray[5].toString('base64') %>" alt="<%= product.productname %>"
+            class="imh">
+    </div>
+    <h1>Related Products</h1>
+    <div class="related">
+        <div class="scrollmenu">
+            <% products.forEach(function(product){ %>
+            <div class="group bg-card p-4 rounded-lg text-wrap">
+                <a href="/product/<%= product._id %>">
+                    <img src="data:image/jpeg;base64,<%= product.productimage[0].toString('base64') %>" loading="lazy"
+                        alt="<%= product.productname %>"
+                        class="w-60 h-60 object-cover mb-4 rounded-lg group-hover:opacity-75 ease-in-out duration-300 shadow ">
+                </a>
+                <div class="text-wrap flex w-52 mb-1 justify-between">
+                    <h3 class="text-md font-medium text-wrap"><%= product.productname %></h3>
+                </div>
+                <span class="text-md font-medium text-wrap">₹<%= product.productprice %>/</span>
+                <a href="/addtocart/<%= product._id %>">
+                    <button
+                        class="mt-1 w-full font-medium text-sm bg-gray-700 transition duration-500 ease-in-out text-white py-2 rounded-full hover:bg-gray-800">
+                        <i class="ri-shopping-cart-fill"></i> Add to Cart</button></a>
+            </div>
+            <% }) %>
+
+        </div>
+    </div>
+</div>
+<div class="footer">
+    <footer class="dark:bg-gray-900 mt-3">
+        <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
+            <div class="md:flex md:justify-between">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="flex items-center">
+                        <img src="/images/Logo/Monsory.png" class="h-8 me-3" alt="Mansory Logo" />
+                        <span
+                            class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white"><%= `${config.get('Brand')}` %></span>
+                    </a>
+                </div>
+                <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Resources</h2>
+                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <li class="mb-4">
+                                <a href="#" class="hover:underline">Mansory</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:underline">Alpha Omega™</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Follow us</h2>
+                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <li class="mb-4">
+                                <a href="#" class="hover:underline">Instagarm</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:underline">Facebook</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                        <ul class="text-gray-500 dark:text-gray-400 font-medium">
+                            <li class="mb-4">
+                                <a href="#" class="hover:underline">Privacy Policy</a>
+                            </li>
+                            <li>
+                                <a href="#" class="hover:underline">Terms &amp; Conditions</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+            <div class="sm:flex sm:items-center sm:justify-between">
+                <span class="text-md text-gray-500 sm:text-center dark:text-gray-400">©<a href="#"
+                        class="hover:underline" id="year"></a>. <%= `${config.get('Brand')}` %>™ All Rights Reserved.
+                </span>
+                <div class="flex mt-4 sm:justify-center sm:mt-0 gap-2">
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">
+                        <i class="ri-facebook-line"></i>
+                        <span class="sr-only">Facebook page</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <i class="ri-instagram-line"></i>
+                        <span class="sr-only">instagarm community</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <i class="ri-twitter-x-line"></i>
+                        <span class="sr-only">Twitter page</span>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5">
+                        <i class="ri-threads-line"></i>
+                        <span class="sr-only">Dribbble account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+</div>
+<%- include('./partials/footer.ejs') %>

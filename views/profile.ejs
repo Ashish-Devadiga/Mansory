@@ -1,0 +1,37 @@
+<%- include('./partials/Navheader.ejs') %>
+
+<div class="userprofile">
+    
+    <div class="profile1">
+        <% if(success.length > 0) { %>
+            <div class="success">
+                <span><%= success %></span>
+                <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+            </div>
+            <% } %>
+        <img src="data:image/jpeg;base64,<%= user.picture.toString('base64') %>" alt="<%= user.fullname %>">
+        <p><%= user.fullname %></p>
+        <p><%= user.email %></p>
+        <form action="/changedp" method="post" enctype="multipart/form-data">
+            <input type="file" name="image">
+            <input type="submit" value="Change">
+        </form>
+        <a href="/profilechanges" class="flex items-center text-black hover:text-blue-500 no-underline">
+            <i class="ri-user-line mr-2"></i> Change Fullname
+        </a>
+        
+        <a href="/profilechanges" class="flex items-center text-black hover:text-blue-500 no-underline">
+            <i class="ri-mail-line mr-2"></i> Change Email
+        </a>
+        
+        <a href="/profilechanges" class="flex items-center text-black hover:text-blue-500 no-underline">
+            <i class="ri-lock-2-line mr-2"></i> Reset Password
+        </a>
+        
+        <a href="/profilechanges" class="flex items-center text-black hover:text-blue-500 no-underline">
+            <i class="ri-map-pin-line mr-2"></i> Address
+        </a>
+        
+    </div>
+</div>
+<%- include('./partials/footer.ejs') %>

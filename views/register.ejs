@@ -1,0 +1,44 @@
+<%- include('./partials/Navheader.ejs') %>
+    <div class="page1">
+        <div class="bgimg">
+          <div class="bgurl">
+          </div>
+        </div>
+        <div class="login">
+            <p>New to <span id = "uniqe"><%= `${config.get('Brand')}` %>  > </span></p>
+            <div class="top">
+                <h3>Create Account</h3>
+                <h4 id = "error"><%= error %></h4>
+            </div>
+            <div class="bottom">
+                <form action="/users/register" method="post" >
+                <input type="text" name="fullname" placeholder="Fullname :" id ="form" >
+                <input type="email" name="email" placeholder="Email :" id ="form" >
+                <input type="number" name="contactNo" placeholder="Contact no :" id ="form">
+                <input type="password" name="password" placeholder="Password :" id ="form" required >
+                <input type="submit" value="Submit" class = "btnsumbit">
+                <div class="forgot">
+                <hr>
+                
+                <div class="socialsauth">
+                    <div class="social-login-buttons">
+                        <button class="social-button facebook">
+                            <i class="ri-facebook-line" class="icon"></i>
+                            Continue with Facebook
+                        </button>
+                        <button class="social-button google">
+                            <i class="ri-google-line" class ="icon"></i>
+                            Continue with Google
+                        </button>
+                    </div>
+                </div>
+                <p class="Policy">By continuing, you agree to <%= `${config.get('Brand')}` %>'s Terms of Service Opens a new tab and acknowledge you've read our Privacy Policy</p>
+                 </div>
+                
+            </form>
+            </div>
+            
+        </div>
+    </div>
+
+    <%- include('./partials/footer') %> 

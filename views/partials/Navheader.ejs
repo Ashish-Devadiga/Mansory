@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/Logo/Monsory.png" sizes="16x16">
+    <link href="https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.css" rel="stylesheet">
+    <link href="raw.githubusercontent.com/repalash/gilroy-free-webfont/fonts/Gilroy-Light.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/stylesheets/login.css">
+    <link rel="stylesheet" href="/stylesheets/admin.css">
+    <link rel="stylesheet" href="/stylesheets/responsive/loginresponsive.css">
+    <link rel="stylesheet" href="/stylesheets/responsive/adminresponsive.css">
+    <title><%= `${config.get('Brand')}` %></title>
+</head>
+
+<body>
+    <div class="main">
+        <% if(navregister === true) { %>
+        <div class="nav">
+            <img src="/images/Logo/Monsory.png">
+            <div class="nav-part2">
+                <a href="/register">Create Account</a>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(navlogin === true) { %>
+        <div class="nav">
+            <img src="/images/Logo/Monsory.png">
+            <div class="nav-part2">
+                <a href="/">login</a>
+            </div>
+        </div>
+        <% } %>
+
+        <% if(navlogout === true) { %>
+        <div class="nav">
+            <img src="/images/Logo/Monsory.png">
+            <div class="nav-part2">
+                <a href="/users/logout">logout</a>
+            </div>
+        </div>
+        <% } %>
+
+
+        <% if(admin === true) { %>
+        <div class="nav">
+            <img src="/images/Logo/Monsory.png">
+            <div class="nav-part2">
+                <a href="/owners/logout">Logout</a>
+            </div>
+        </div>
+        <% } %>
+
+        <% var navregister = 1; %>
+        <% var navlogin = 1; %>
+        <% var navlogout = 1; %>

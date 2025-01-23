@@ -1,0 +1,61 @@
+<%- include('./partials/header.ejs') %>
+<% if(success.length > 0) { %>
+<div class="success">
+    <span><%= success %></span>
+    <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+</div>
+<% } %>
+
+<div class="space-y-6 max-w-sm mx-auto">
+    <form action="/update" method="POST">
+        <div>
+            <div class="flex items-center mb-2">
+                <i class="ri-user-line text-xl mr-2"></i>
+                <h4 class="text-sm font-semibold">Change Fullname</h4>
+            </div>
+            <input type="text" placeholder="Enter your full name"
+                class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button
+                class="mt-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">Submit</button>
+        </div>
+    </form>
+    <form action="/update" method="POST">
+        <div>
+            <div class="flex items-center mb-2">
+                <i class="ri-mail-line text-xl mr-2"></i>
+                <h4 class="text-sm font-semibold">Change Email</h4>
+            </div>
+            <input type="email" placeholder="Enter your email"
+                class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button
+                class="mt-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">Submit</button>
+        </div>
+    </form>
+    <form action="/update" method="POST">
+        <div>
+            <div class="flex items-center mb-2">
+                <i class="ri-lock-2-line text-xl mr-2"></i>
+                <h4 class="text-sm font-semibold">Reset Password</h4>
+            </div>
+            <input type="password" placeholder="Enter your new password"
+                class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button
+                class="mt-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">Submit</button>
+        </div>
+    </form>
+
+    <form action="/update" method="POST">
+        <div>
+            <div class="flex items-center mb-2">
+                <i class="ri-map-pin-line text-xl mr-2"></i>
+                <h4 class="text-sm font-semibold">Address</h4>
+            </div>
+            <input type="text" name="address" placeholder="Enter your address"
+                class="w-full px-4 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button type="submit"
+                class="mt-2 px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 text-sm">Submit</button>
+        </div>
+    </form>
+
+</div>
+<%- include('./partials/footer.ejs') %>

@@ -1,0 +1,127 @@
+@media (max-width:1024px) {
+
+    .main {
+        padding: 0vh 3vw;
+        display: inline-block;
+        gap: 0vw;
+        justify-content: none;
+        align-items: center;
+    }
+
+    .owner h1 {
+        font-size: 3.5vh;
+        font-weight: 600;
+    }
+
+    .owner img {
+        height: 4vh;
+        width: 17vw;
+    }
+
+    .line {
+        display: none;
+    }
+
+    .top {
+        height: 100vh;
+        width: 100%;
+    }
+
+    .login {
+        padding: 2vh 2vw;
+        margin-top: 5vh;
+    }
+
+    .login h1 {
+        font-size: 6vw;
+        margin: 0vh auto;
+    }
+
+    .login form input {
+        padding: 1.8vh 0vw;
+        margin-top: 4vh;
+        font-size: 3vw;
+    }
+
+    .btnsumbit {
+        border-radius: 50px;
+    }
+
+    .forgot a {
+        font-size: 3.3vw;
+        font-weight: 500;
+    }
+
+    .bottom {
+        min-height: 100vh;
+        width: 100%;
+        padding: 0vh 0vw;
+    }
+
+    .register {
+        align-content: center;
+        min-height: 100vh;
+        margin-top: 0vh;
+    }
+
+    .register h1 {
+        font-size: 6vw;
+    }
+
+    .register form input {
+        padding: 1.8vh 0vw;
+        margin-top: 4vh;
+        font-size: 3vw;
+    }
+
+    .Policy p {
+        font-size: 2vh;
+    }
+
+}
+
+@media (max-width:600px) {
+
+    .owner img {
+        height: 4vh;
+        width: 20;
+    }
+
+    .owner h1 {
+        font-size: 3vh;
+    }
+
+    .login h1 {
+        font-size: 4.5vh;
+    }
+
+    .login form input {
+        padding: 1.8vh 0vw;
+        margin-top: 4vh;
+        font-size: 4vw;
+    }
+
+    .forgot a {
+        font-size: 2vh;
+    }
+
+    .register {
+        padding: 0vh 2vw;
+    }
+
+    .register h1 {
+        font-size: 4.5vh;
+    }
+
+    .register form input {
+        padding: 1.8vh 0vw;
+        margin-top: 4vh;
+        font-size: 4vw;
+    }
+
+    .Policy p {
+        font-size: 2vh;
+    }
+
+
+}

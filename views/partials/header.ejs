@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/Logo/Monsory.png" sizes="16x16">
+    <link href="https://cdn.jsdelivr.net/gh/repalash/gilroy-free-webfont@fonts/Gilroy-Light.css" rel="stylesheet">
+    <link href="raw.githubusercontent.com/repalash/gilroy-free-webfont/fonts/Gilroy-Light.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/locomotive-scroll@4.1.4/dist/locomotive-scroll.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/shop.css">
+    <title><%= `${config.get('Brand')}` %></title>
+</head>
+<body>
+<div class="main">
+    <% if(navshop === true) { %>
+    <div class="nav">
+        <img src="/images/Logo/Monsory.png">
+        <div class="nav-part2">
+            <input type="search" placeholder="Search">
+            <a href="/cart"><i class="ri-shopping-cart-fill"></i><%= user.cart.length %></a>
+            <i class="ri-menu-3-fill" id="menu"></i>
+        </div>
+    </div>
+    <% } %>
+
+    <% if(navprofile === true) { %>
+        <div class="nav">
+            <img src="/images/Logo/Monsory.png">
+            <div class="nav-part2">
+            </div>
+        </div>
+        <% } %>
+
+
+

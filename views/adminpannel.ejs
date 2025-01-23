@@ -1,0 +1,52 @@
+<%- include('./partials/Navheader.ejs')  %>
+<div class="page">
+    <div class="left">
+        <a href="/owners/products"><i class="ri-store-2-line"></i> All Products</a>
+        <a href=""><i class="ri-add-fill"></i> Create New Product</a>
+    </div>
+    <div class="line"></div>
+    <div class="right">
+        <h2>Create New Product</h2>
+        <% if(success.length > 0) { %>
+        <div class="success">
+            <span><%= success %></span>
+            <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+        </div>
+        <% } %>
+        <%= error %>
+        <h4>Product Details</h4>
+        <div class="proform">
+            <form action="/products/create" method="post" enctype="multipart/form-data">
+                <h5>Product image</h5>
+                <input type="file" multiple name="productimage" required><br>
+                <input type="textarea" name="productname" placeholder="Product Name :" required>
+                <input type="textarea" name="productprice" placeholder="Product Price :" required>
+                <input type="textarea" name="productdiscount" placeholder="Product discount :" required>
+                <h4>Product Details</h4>
+                <input type="textarea" name ="productdetail" placeholder="Productdetail" required>
+                <input type="textarea" name = "productinfo" placeholder="Productdetail 1:" required>  
+                <input type="textarea" name = "productinfo" placeholder="Productdetail 2:" required>  
+                <input type="textarea" name = "productinfo" placeholder="Productdetail 3:" required>  
+                <input type="textarea" name = "productinfo" placeholder="Productdetail 4:" required>  
+                <h4>Product Size Details</h4>
+                <input type="textarea" name="productsize" placeholder="product size  1 :" required>
+                <input type="textarea" name="productsize" placeholder="productsize  2 :" required>
+                <input type="textarea" name="productsize" placeholder="productsize  3 :" required>
+                <input type="textarea" name="productsize" placeholder="productsize  4 :" required>
+                <input type="textarea" name="productsize" placeholder="productsize  5 :" required>
+                <h4>Product color Details</h4>
+                <input type="textarea" name="productcolor" placeholder="productcolor 1 :" required>
+                <input type="textarea" name="productcolor" placeholder="productcolor 2 :" required>
+                <input type="textarea" name="productcolor" placeholder="productcolor 3:" required>
+                <input type="textarea" name="productcolor" placeholder="productcolor 4 :" required>
+                <input type="textarea" name="productcolor" placeholder="productcolor 5 :" required><br>
+                <input type="submit" value="Create New Product">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+
+<%- include('./partials/footer') %>

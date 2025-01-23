@@ -1,0 +1,290 @@
+<%- include('./partials/header.ejs') %>
+
+<% if(success.length > 0) { %>
+<div class="success">
+    <span><%= success %></span>
+    <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+</div>
+<% } %>
+
+<div id="full">
+    <div class="close">
+        <i class="ri-close-line"></i>
+    </div>
+    <div class="profile">
+        <img class="w-36 h-36 rounded-full object-cover"
+            src="data:image/jpeg;base64,<%= user.picture.toString('base64') %>" alt="<%= user.fullname %>"
+            alt="Rounded avatar">
+        <h3><%= user.fullname %></h3>
+        <h5><%= user.email %></h5>
+    </div>
+    <div class="options">
+        <a href="/profile"><i class="ri-user-line"></i> Profile</a>
+        <a href="#"><i class="ri-instance-line"></i> Orders</a>
+        <a href="/shop"><i class="ri-store-2-line"></i> Shop</a>
+        <a href="/users/logout"><i class="ri-logout-circle-line"></i> Logout</a>
+    </div>
+    <div class="social">
+        <i class="ri-instagram-line"></i>
+        <i class="ri-facebook-line"></i>
+        <i class="ri-twitter-x-fill"></i>
+        <i class="ri-threads-line"></i>
+    </div>
+</div>
+<section class="bg-transparent py-8 antialiased dark:bg-gray-900 md:py-16">
+    <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+        <h2 class="text-xl font-semibold text-gray-900 dark:text-white sm:text-2xl">Shopping Cart</h2>
+
+        <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+            <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                <div class="space-y-6">
+
+                    <% var totalCost = 0; %>
+                    <% var totaldiscount = 0; %>
+                    <% let Savings = 0; %>
+                    <% let ShipingFee = 60; %>
+                    <% let GST = 23; %>
+                    <% let Finalbill = 0; %>
+
+
+                    <% user.cart.forEach(function(product) {  %>
+                    <% totaldiscount +=parseFloat(product.productdiscount) %>
+                    <% totalCost += parseFloat(product.productprice)  %>
+                    <% Finalbill = totalCost - totaldiscount + ShipingFee + GST  %>
+                    <% Savings = totalCost - Finalbill %>
+                    <% if(Finalbill > totalCost) {  %>
+                    <% Savings = 0 %>
+                    <%  } %>
+
+                    <script>
+                        document.addEventListener('DOMContentLoaded', function () {
+                            const gst = 23;
+                            const shippingFee = 60;
+
+                            function updateOrderSummary() {
+                                let totalCost = 0;
+                                let totalDiscount = 0;
+
+                                document.querySelectorAll('[id^="price-"]').forEach(priceElement => {
+                                    totalCost += parseFloat(priceElement.textContent.replace('₹', ''));
+                                });
+
+                                document.querySelectorAll('[id^="discount-"]').forEach(discountElement => {
+                                    totalDiscount += parseFloat(discountElement.textContent.replace('₹', ''));
+                                });
+
+                                let finalBill = totalCost - totalDiscount + gst + shippingFee;
+                                let savings = Math.max(0, totalCost - finalBill);
+
+                                document.getElementById('order-total-cost').textContent = `₹${totalCost.toFixed(2)}`;
+                                document.getElementById('order-total-discount').textContent = `-₹${totalDiscount.toFixed(2)}`;
+                                document.getElementById('order-gst').textContent = `₹${gst.toFixed(2)}`;
+                                document.getElementById('order-shipping').textContent = `₹${shippingFee.toFixed(2)}`;
+                                document.getElementById('order-savings').textContent = `₹${savings.toFixed(2)}`;
+                                document.getElementById('final-bill').textContent = `₹${finalBill.toFixed(2)}`;
+                            }
+
+                            document.querySelectorAll('[id^="counter-input-"]').forEach((counterInput) => {
+                                const productId = counterInput.id.split('-')[2];
+                                const decrementButton = document.getElementById(`decrement-button-${productId}`);
+                                const incrementButton = document.getElementById(`increment-button-${productId}`);
+                                const priceElement = document.getElementById(`price-${productId}`);
+                                const discountElement = document.getElementById(`discount-${productId}`);
+                                const basePrice = parseFloat(priceElement.textContent.replace('₹', ''));
+                                const baseDiscount = parseFloat(discountElement.textContent.replace('₹', ''));
+
+                                function updatePrice() {
+                                    let quantity = parseInt(counterInput.value);
+                                    let newPrice = basePrice * quantity;
+                                    let newDiscount = baseDiscount * quantity;
+
+                                    priceElement.textContent = `₹${newPrice.toFixed(2)}`;
+                                    discountElement.textContent = `₹${newDiscount.toFixed(2)}`;
+
+                                    updateOrderSummary();
+                                }
+
+                                incrementButton.addEventListener('click', function () {
+                                    let quantity = parseInt(counterInput.value);
+                                    counterInput.value = quantity + 1;
+                                    updatePrice();
+                                });
+
+                                decrementButton.addEventListener('click', function () {
+                                    let quantity = parseInt(counterInput.value);
+                                    if (quantity > 1) {
+                                        counterInput.value = quantity - 1;
+                                        updatePrice();
+                                    }
+                                });
+                            });
+
+                            updateOrderSummary();
+                        });
+
+                    </script>
+
+                    <div
+                        class="rounded-lg border border-gray-200 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 md:p-6">
+                        <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+                            <a href="/product/<%= product._id %>" class="shrink-0 md:order-1">
+                                <img src="data:image/jpeg;base64,<%= product.productimage[0].toString('base64') %>"
+                                    class="h-20 w-20 object-cover object-center lg:h-20 lg:w-20">
+                            </a>
+                            <label for="counter-input-<%= product._id %>" class="sr-only">Choose quantity:</label>
+                            <div class="flex items-center justify-between md:order-3 md:justify-end">
+                                <div class="flex items-center">
+                                    <button type="button" id="decrement-button-<%= product._id %>"
+                                        class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                                        <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M1 1h16" />
+                                        </svg>
+                                    </button>
+
+                                    <input type="text" id="counter-input-<%= product._id %>" value="1" min="1"
+                                        class="w-10 shrink-0 border-0 bg-transparent text-center text-sm font-medium text-gray-900 focus:outline-none focus:ring-0 dark:text-white"
+                                        readonly />
+
+                                    <button type="button" id="increment-button-<%= product._id %>"
+                                        class="inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border border-gray-300 bg-gray-100 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700">
+                                        <svg class="h-2.5 w-2.5 text-gray-900 dark:text-white" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M9 1v16M1 9h16" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <div class="text-end md:order-4 md:w-32">
+                                    <p id="price-<%= product._id %>"
+                                        class="text-base font-bold text-gray-900 dark:text-white">
+                                        ₹<%= product.productprice %>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="w-full min-w-0 flex-1 space-y-3 md:order-2 md:max-w-md">
+                                <a href="/product/<%= product._id %>"
+                                    class="text-base font-medium text-gray-900 hover:underline dark:text-white"><%= product.productname%></a>
+                                <p class="text-green-600"> Discount : ₹<%= product.productdiscount %></p>
+                                <div class="flex items-center gap-4">
+                                    <button type="button"
+                                        class="inline-flex items-center text-sm font-medium text-gray-500 hover:text-gray-900 hover:underline dark:text-gray-400 dark:hover:text-white">
+                                        <svg class="me-1.5 h-5 w-5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                            viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2"
+                                                d="M12.01 6.001C6.5 1 1 8 5.782 13.001L12.011 20l6.23-7C23 8 17.5 1 12.01 6.002Z" />
+                                        </svg>
+                                        Add to Favorites
+                                    </button>                               
+                                        <div class="product-item" data-product-id="<%= product._id %>">
+                                            <p id="discount-<%= product._id %>">₹<%= product.productdiscount %></p>
+                                        </div>
+                                    <button type="button"
+                                        class="inline-flex items-center text-sm font-medium text-red-600 hover:underline dark:text-red-500">
+                                        <svg class="me-1.5 h-5 w-5" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none"
+                                            viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6" />
+                                        </svg>
+                                        <a href="/removefromcart/<%= product._id %>">Remove</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%   }) %>
+                    <div class="space-y-4 rounded-lg border border-gray-200 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+                        <h3 class="font-bold text-lg">Confirm Details</h3>
+                        <%= user.fullname %><br>
+                        <p>+91 <%= user.contactNo %></p>
+                        <p class="text-gray-700 dark:text-gray-300"><%= user.address %></p>
+                        <a href="/profilechanges" class="mt-4 inline-block px-6 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm">
+                            Change
+                        </a>
+                    </div>
+                    
+                    <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
+                        <div
+                            class="space-y-4 rounded-lg border border-gray-200 p-4 shadow-sm dark:border-gray-700 dark:bg-gray-800 sm:p-6">
+                            <p class="text-xl font-semibold text-gray-900 dark:text-white">Order summary</p>
+
+                            <div class="space-y-4">
+                                <div class="space-y-2">
+
+                                    <dl class="flex items-center justify-between gap-4">
+                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Original
+                                            Price</dt>
+                                        <dd id="order-total-cost" class="text-base font-medium ">
+                                            ₹<%= totalCost.toFixed(2) %> </dd>
+                                    </dl>
+
+                                    <dl class="flex items-center justify-between gap-4">
+                                        <dt id="total" class="text-base font-normal text-gray-500 dark:text-gray-400">
+                                            Total Discount</dt>
+                                        <dd id="order-total-discount" class="text-base font-medium">
+                                            -₹<%= totaldiscount %></dd>
+                                    </dl>
+
+                                    <dl class="flex items-center justify-between gap-4">
+                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">GST</dt>
+                                        <dd id="order-gst" class="text-base font-medium text-gray-900 dark:text-white">
+                                            ₹23</dd>
+                                    </dl>
+
+                                    <dl class="flex items-center justify-between gap-4">
+                                        <dt class="text-base font-normal text-gray-500 dark:text-gray-400">Shipping Fee
+                                        </dt>
+                                        <dd id="order-shipping"
+                                            class="text-base font-medium text-gray-900 dark:text-white">₹60</dd>
+                                    </dl>
+                                    
+                                    <dl
+                                        class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                                        <dt class="text-base font-normal text-green-600 dark:text-gray-400">Savings</dt>
+                                        <dd id="order-savings"
+                                            class="text-base font-medium text-green-600 dark:text-white">
+                                            ₹<%= Savings.toFixed(0) %></dd>
+                                    </dl>
+
+                                    <dl
+                                        class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
+                                        <dt class="text-base font-bold text-gray-900 dark:text-white">Total</dt>
+                                        <dd id="final-bill" class="text-base font-bold text-gray-900 dark:text-white">
+                                            ₹<%= Finalbill.toFixed(0) %></dd>
+                                    </dl>
+                                </div>
+                                <% let buttonRendered = false; %>
+                                <% user.cart.forEach(function(product) { %>
+
+                                  <% if (!buttonRendered) { %>
+                                    <a href="/orderconfirmation?ids=<%= user.cart.map(product => product._id).join(','); %>" 
+                                       class="bg-red-600 flex text-white rounded-full w-full items-center justify-center px-5 py-2.5 text-sm font-medium hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+                                       Proceed to Checkout All Items
+                                    </a>
+                                    <% buttonRendered = true; %>
+                                  <% } %>
+                                <% }); %>
+                                
+                                <div class="flex items-center justify-center gap-2">
+                                    <span class="text-sm font-normal text-gray-500 dark:text-gray-400"> or </span>
+                                    <a href="/shop" title=""
+                                        class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline dark:text-primary-500">
+                                        Continue Shopping
+                                        <svg class="h-5 w-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                                stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+</section>
+
+<%- include('./partials/footer.ejs') %>

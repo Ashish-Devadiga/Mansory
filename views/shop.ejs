@@ -1,0 +1,80 @@
+<%- include('./partials/header.ejs') %>
+
+<% if(success.length > 0) { %>
+<div class="success">
+    <span><%= success %></span>
+    <i class="ri-close-line" onclick="return this.parentNode.remove();"></i>
+</div>
+<% } %>
+
+<div id="full">
+    <div class="close">
+        <i class="ri-close-line"></i>
+    </div>
+    <div class="profile">
+        <img class="w-36 h-36 rounded-full object-cover shadow border-gray-600"
+            src="data:image/jpeg;base64,<%= user.picture.toString('base64') %>" alt="<%= user.fullname %>"
+            alt="Rounded avatar">
+        <h3><%= user.fullname %></h3>
+        <h5><%= user.email %></h5>
+    </div>
+    <div class="options">
+        <a href="/profile"><i class="ri-user-line"></i> Profile</a>
+        <a href="/orders"><i class="ri-instance-line"></i> Orders</a>
+        <a href="/cart"><i class="ri-shopping-cart-line"></i> Cart</a>
+        <a href="/users/logout"><i class="ri-logout-circle-line"></i> Logout</a>
+    </div>
+    <div class="social">
+        <i class="ri-instagram-line"></i>
+        <i class="ri-facebook-line"></i>
+        <i class="ri-twitter-x-fill"></i>
+        <i class="ri-threads-line"></i>
+    </div>
+</div>
+<div class="page1">
+    <div class="left">
+        <div class="sort">
+            <i class="ri-sort-desc"></i> 
+            <select>
+                <option value="Popular">Popular</option>
+                <option value="Men">Men</option>
+                <option value="Women">Women</option>
+                <option value="Kids">Kids</option>
+            </select>
+        </div>
+        <div class="collections">
+            <h4><i class="ri-t-shirt-line"></i> New Collections</h4>
+            <h4><i class="ri-gallery-view-2"></i> All Products</h4>
+            <h4><i class="ri-discount-percent-line"></i> Discounted</h4>
+        </div>
+        <div class="filter">
+            <h4>Filter by</h4>
+            <h4>Availability</h4>
+            <h4>Discount</h4>
+        </div>
+    </div>
+    <div class="right">
+        <div class="p-6 text-foreground font">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4">
+                <% products.forEach(function(product){ %>
+                <div class="group bg-card p-4 rounded-lg">
+                    <a href="/product/<%= product._id %>">
+                        <img src="data:image/jpeg;base64,<%= product.productimage[0].toString('base64') %>"
+                            loading="lazy" alt="<%= product.productname %>"
+                            class="w-full h-72 object-cover mb-4 rounded-lg group-hover:opacity-75 ease-in-out duration-300 shadow ">
+                    </a>
+                    <div class="flex justify-between items-center mb-1">
+                        <h3 class="text-md font-medium"><%= product.productname %></h3>
+                        <span class="text-md font-medium">₹<%= product.productprice %>/</span>
+                    </div>
+                    <a href="/addtocart/<%= product._id %>">
+                        <button
+                            class="mt-1 w-full font-medium text-sm bg-gray-700 transition duration-500 ease-in-out text-white py-2 rounded-full hover:bg-gray-800">
+                            <i class="ri-shopping-cart-fill"></i> Add to Cart</button></a>
+                </div>
+                <% }) %>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('./partials/footer.ejs') %>

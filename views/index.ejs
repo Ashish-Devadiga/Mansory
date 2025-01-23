@@ -1,0 +1,41 @@
+<%- include('./partials/Navheader.ejs') %>
+
+<div class="page1">
+    <div class="bgimg">
+        <div class="bgurl">
+        </div>
+    </div>
+    <div class="login">
+        <div class="top">
+            <h3>Login to Continue</h3>
+            <h5 id="error"><%= error %></h5>
+        </div>
+        <div class="bottom">
+            <form action="/users/login" method="post">
+                <input type="email" name="email" placeholder="Email :" id="form">
+                <input type="password" name="password" placeholder="Password :" id="form">
+                <input type="submit" value="Login" class="btnsumbit">
+                <div class="forgot">
+                    <a href="/forgot" class="forgot">Forgot Password?</a>
+                    <hr>
+                    <div class="socialsauth">
+                        <div class="social-login-buttons">
+                            <button class="social-button facebook">
+                                <i class="ri-facebook-line" class="icon"></i>
+                                Continue with Facebook
+                            </button>
+                            <button class="social-button google">
+                                <i class="ri-google-line" class="icon"></i>
+                                Continue with Google
+                            </button>
+                        </div>
+                    </div>
+                    <p class="Policy">By continuing, you agree to <%= `${config.get('Brand')}` %>'s Terms of Service
+                        Opens a new tab and acknowledge you've read our Privacy Policy</p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<%- include('./partials/footer') %>

@@ -77,8 +77,7 @@ Masory is a fully functional online clothing shop where users can browse, select
    ```
 
 6. Open your browser and go to:
-
-   ```
+   ```powershell
  For Development Port http://localhost:3000
  For Production Port  http://localhost:2000
    ```

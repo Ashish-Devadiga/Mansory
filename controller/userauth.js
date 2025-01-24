@@ -13,6 +13,7 @@ module.exports.registerUser = async (req, res) => {
       let user = await userModel.findOne({ email: email })
 
       if (user) {
+         console.log(err)
          req.flash("error", "User Already Exist")
          return res.redirect("/register")
       }

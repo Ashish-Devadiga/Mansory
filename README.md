@@ -9,6 +9,8 @@ Masory is a fully functional online clothing shop where users can browse, select
 - **Add to Cart**: Users can add selected items to their shopping cart.
 - **Authentication**: User login and registration functionality.
 - **Admin Panel**: Manage products, view orders, and handle user data.
+- **Cash on Delivery: Payment option available for users.
+- **Track Orders: Users can track the status of their orders.
 
 ## Technologies Used
 

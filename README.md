@@ -28,10 +28,12 @@ Masory is a fully functional online clothing shop where users can browse, select
 ### Database
 
 - **MongoDB**: Storing user and product data.
+  
 
 ### Vist Mansory
 
 - **live Demo** : https://mansory.onrender.com
+  
 
 ## Installation
 
@@ -77,8 +79,8 @@ Masory is a fully functional online clothing shop where users can browse, select
 6. Open your browser and go to:
 
    ```
-  For Development Port http://localhost:3000
-  For Production Port  http://localhost:2000
+ For Development Port http://localhost:3000
+ For Production Port  http://localhost:2000
    ```
 
 ## Project Structure
@@ -119,5 +121,4 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 
 ---
 
-Happy Shopping with **Masory**! 🎉add live demo link https://mansory.onrender.com and port for development is 3000 and for production 2000 and in fetutes section add order products and make payment with cash on delivery and trac orders and folder ssturctre id  
-
+Happy Shopping with **Masory**!   

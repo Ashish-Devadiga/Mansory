@@ -33,6 +33,7 @@ module.exports.registerUser = async (req, res) => {
 
    }
    catch (err) {
+      console.log(err)
       req.flash("error", "Missing Credentials *")
       return res.redirect("/register")
    };

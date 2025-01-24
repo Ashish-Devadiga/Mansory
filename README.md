@@ -57,30 +57,30 @@ Masory is a fully functional online clothing shop where users can browse, select
 
 4. Configure environment variables:
 
-   - .env variables
-     ```powershell
-     $env:NODE_ENV = "development"
-     ```
-     For production environment:
-     ```powershell
-     $env:NODE_ENV = "production"
-     ```
-     Additionally:
-     ```env
-     EXPRESS_SESSION_SECRET="session"
-     ```
+- .env variables
+```powershell
+$env:NODE_ENV = "development"
+```
+For production environment:
+```powershell
+$env:NODE_ENV = "production"
+```
+Additionally:
+```env
+EXPRESS_SESSION_SECRET="session"
+```
 
 5. Start the server in development mode:
 
-   ```bash
+```bash
    npx nodemon
-   ```
+```
 
 6. Open your browser and go to:
- ```bash
+```bash
  For Development Port http://localhost:3000
  For Production Port  http://localhost:2000
-  ```
+```
 
 ## Project Structure
 

@@ -14,7 +14,7 @@ Masory is a fully functional online clothing shop where users can browse, select
 - **Cash on Delivery**: Payment option available for users.
 - **Track Orders**: Users can track the status of their orders.
 
- ![Image](https://i.pinimg.com/736x/33/5e/d3/335ed3aba0c65b5c10f814c30d6d3ce1.jpg)
+ ![Image](https://i.pinimg.com/736x/dd/50/8f/dd508f8b62e1fabcb812d4a0e060ae4c.jpg)
 
 ## Technologies Used
 
@@ -33,7 +33,7 @@ Masory is a fully functional online clothing shop where users can browse, select
 
 - **MongoDB**: Storing user and product data.
 
-![Image](https://i.pinimg.com/1200x/dd/50/8f/dd508f8b62e1fabcb812d4a0e060ae4c.jpg)
+![Image]()
   
 
 ### Vist Mansory

@@ -64,6 +64,7 @@ Masory is a fully functional online clothing shop where users can browse, select
 
   - .env variables
   ```powershell
+  For development environment:
   $env:NODE_ENV = "development"
   ```
   For production environment:

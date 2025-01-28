@@ -67,7 +67,7 @@ Masory is a fully functional online clothing shop where users can browse, select
   ```
   Additionally:
   ```env
-  EXPRESS_SESSION_SECRET="session"
+ $env:EXPRESS_SESSION_SECRET="session"
   ```
 
 5. Start the server in development mode:

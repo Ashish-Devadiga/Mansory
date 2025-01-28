@@ -2,7 +2,7 @@
 
 Masory is a fully functional online clothing shop where users can browse, select, and purchase clothing items. Built using modern web technologies, Masory offers a seamless and engaging shopping experience.
 
-![Image](https://i.pinimg.com/736x/38/f3/85/38f385a41a9671538afd3767fcb28890.jpg)
+![Image](https://i.pinimg.com/736x/ce/18/a1/ce18a181c9796450b4e3b4e48fea04e5.jpg)
 
 ## Features
 

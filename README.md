@@ -14,6 +14,8 @@ Masory is a fully functional online clothing shop where users can browse, select
 - **Cash on Delivery**: Payment option available for users.
 - **Track Orders**: Users can track the status of their orders.
 
+ ![Image](blob:https://in.pinterest.com/32229335-dd42-4bc4-8f2c-b565e851402d)
+
 ## Technologies Used
 
 ### Frontend
